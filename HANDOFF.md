@@ -1,6 +1,6 @@
 # N.Y.A.T (Not Your Average Tycoon) — Development Handoff
 
-- **Version:** 0.49 (Economy Guardrails + Walk & Fish Slice Started)
+- **Version:** 0.50 (Concept Renders Analyzed — Art Direction Added)
 - **Last Updated:** November 27, 2026
 - **Target Platform:** Cross-platform 2.5D top-down pixel art (iOS/Android phones, iPad/tablets, Desktop/Steam)
 - **Repo:** github.com/kinglyarab/nyat — playable web build at kinglyarab.github.io/NYAT
@@ -28,7 +28,7 @@
 | Data-driven fish table | Done | `data/fishing_drops.json` |
 | Stations, gardens, archetypes, prestige, trading, gacha, audio | Not started | — |
 
-**Art status:** all art in the slice is procedurally drawn placeholder pixel art (generated at runtime in `scripts/pixel_art.gd`) so the build has no external asset dependencies. It will be replaced with real sprite sheets.
+**Art status:** all art in the slice is procedurally drawn placeholder pixel art (generated at runtime in `scripts/pixel_art.gd`) so the build has no external asset dependencies. It is far below the target look in Section 4A and uses a 3/4 top-down projection, while both concept renders are isometric (see the open projection decision in Section 5).
 
 **Controls in the slice:**
 - Touch: left thumb = floating joystick; right side = big **ACTION** button (interact / cast / reel) and **LOG** button.
@@ -134,7 +134,7 @@
 - **Audio:** cozy lo-fi / ambient synth & Rhodes loops, retro SFX, escalating rarity jingles (not in slice yet).
 - **Data:** JSON configs in `data/`. Central state autoload (`GameState`) with UTC timestamps, ready for server-authoritative sync (Supabase/Firebase) in Phases 2–3.
 - **Web build:** single-threaded export (`variant/thread_support=false`) so it runs on GitHub Pages without special headers.
-- **Reference images:** store in `docs/references/` (e.g. `docs/references/t3_celestial_cloud_sea.png`).
+- **Reference images:** stored in `docs/references/` (`sanctuary_concept.jpg`, `t3_celestial_cloud_sea.jpg`). `docs/` has a `.gdignore` so Godot never imports them.
 
 ### Repository layout
 ```
@@ -173,6 +173,46 @@ HANDOFF.md
 - **Phase 2 (async social & cosmetics):** friend visiting, async trading, tiered outfits, VFX pets.
 - **Phase 3 (live public zones):** multiplayer fishing / Trade Plaza, WTB/WTT boards, chat, rare-pull broadcasts.
 
+## 4A. Art Direction (from concept renders, v0.50)
+
+Reference files: `docs/references/sanctuary_concept.jpg` (intended sanctuary look) and `docs/references/t3_celestial_cloud_sea.jpg` (example Tier 3 pond). Both are AI-generated concepts: treat them as mood, layout and density targets, not exact designs. Any text inside them (Gazette headlines, labels) is generator noise.
+
+### What both renders share
+- **Projection: isometric** (2:1 diamond floor grid, rooms seen from a corner with two visible back walls). This is Habbo Hotel's projection, not the straight-on 3/4 top-down used in the current slice. See Section 5, open decision.
+- **High-detail pixel art** with soft, glowing light: every surface has texture (wood grain, brick, stone paving) and small props fill the space.
+- **Lighting language:** warm amber pendant lamps and lantern posts make pools of light, set against cool cyan, teal, violet and magenta cosmic glows. The two temperatures should always be in contrast.
+- **Spaces float in a starry void:** the sanctuary room and the T3 island both sit on a dark space background with no surrounding world. This also keeps scenes self-contained and cheap to render.
+- **Palette:** dark warm browns (wood, brick), amber/gold (lights, trims, trophies), cyan/teal (tech, specimen tanks, portals), violet/magenta (cosmic water, crystals, neon), lavender-white (clouds).
+- **Characters:** roughly 3 heads tall, slightly stylised but not super-deformed; outfits, hats and gear must read clearly. Follower pets trail beside avatars (e.g. a flame-tailed fox).
+
+### Sanctuary (sanctuary_concept.jpg)
+- **Room shell:** one large isometric room, wood-plank diagonal floor, two back walls in brick and dark wood panelling with trim, ceiling pendant lamps on cords, neon sign ("N.Y.A.T Co."), framed pictures, floating shelves of trophies and display items.
+- **Round porthole window to the Social Nexus:** a large circular window on the back wall showing the plaza with portals and players. Good candidate for the in-room Nexus entrance.
+- **Zones in one room (layout reference):**
+  - *Cosmic Fishing corner:* a round, glowing nebula pool with a stone rim. This is how the **Cosmic Fishing Rift** furniture should look in a sanctuary. A player sits on a bean bag fishing into it.
+  - *Tycoon Station Hub:* chunky sci-fi machines linked by a conveyor belt, with glass tanks, pipes, sparks and floating Coins. Named examples: **Quantum Synthesizer**, **Slime Gacha Extractor**, **Cosmic Seed Sprouter**. A 1-tap fix shows a speech-bubble prompt, sparkles and a "Smooth Sailing" buff chip above the player.
+  - *Botanical Garden:* raised wooden planters along a wall with glowing exotic plants (example: **Starlight Lotus**).
+  - *Mini-Game Arcade & Lounge:* arcade cabinets with lit screens and gaming chairs.
+  - *Mini Poker Table:* green felt oval table with chips and cards, mixed flex chairs around it (bean bag, teddy bear chair, armchairs) on a patterned rug.
+  - *Front desk area:* a counter with screens and a gold crown trophy.
+- **Sanctuary Gazette:** styled as an old broadsheet newspaper (blackletter masthead, columns, a photo). Use this for the login recap screen.
+- **Contradiction in the render:** it labels the poker table and a desk "Crowns Wager". This conflicts with the settled **Coins-only stakes** rule and is ignored. Casino/tabletop games stay Coins or Coins-backed chips only.
+
+### Tier 3 pond (t3_celestial_cloud_sea.jpg — "Celestial Cloud Sea")
+Updates and replaces the earlier written T3 visual notes.
+- **Floating island** ringed by fluffy lavender clouds, rocky underside with crystals, hanging in space.
+- **Wide stone-paved promenade** around the whole pond with railings at the drop-off and grassy, flowered patches with crystal clusters.
+- **Large galaxy/nebula pond** in the middle: spiral galaxy, aurora ribbons, stars and drifting clouds in the water, with a stone rim.
+- **Four wooden piers** reaching in from different sides so many players can fish without crowding.
+- **Hangout space everywhere:** rows of flex chairs, pets, golden lamp posts, specimen display tubes/tanks, pedestals with orbs and crystals.
+- **Crowd density:** about 50–60 players visible at once. Shared hubs must handle this many avatars (performance, name-tag clutter).
+- **HUD in the render:** top-right stack with Coins, Crowns and a Collection Log button.
+- **Camera:** the render is zoomed out to show the whole island. In play the camera stays closer (outfits must be readable) and pans around the island; a zoomed-out "overview" is optional.
+
+### Implications for production
+- **Projection change (if approved):** floor becomes 64×32 isometric diamonds (the isometric form of the approved 32×32 tile). Furniture needs 2 drawn facings (the other 2 mirrored), like Habbo. Avatars need 2 drawn directions (front-diagonal and back-diagonal), mirrored for the other 2, plus walk cycles. Joystick and keys map to the four screen diagonals plus straight directions.
+- **Art pipeline:** the target is well beyond what can be drawn convincingly in code. Real sprite sheets are needed for avatar layers, furniture and environments; the code-drawn art stays only as placeholder.
+
 ## 5. Decision Log, Contradictions & Open Questions
 
 ### Settled
@@ -188,6 +228,10 @@ HANDOFF.md
 - **(v0.49) Tiles:** 32×32.
 - **(v0.49) Engine/deploy:** Godot 4.3, GL Compatibility, auto web export to GitHub Pages; first build is the Walk & Fish Slice rather than the whole Phase 1 prompt at once.
 
+### Open — needs owner decision
+- **(v0.50) Projection:** both concept renders are isometric (Habbo-style), but the handoff and the current slice use straight 3/4 top-down. Recommendation: switch to isometric for all spaces, since room-building is a Habbo pillar and both renders use it. Would mean rebuilding the slice's rooms and avatar on a 64×32 diamond grid.
+- **(v0.50) Art production:** who makes final sprite art (artist, commissioned, or AI-assisted then cleaned up), and at what avatar size.
+
 ### Deferred / TBD
 - Economy numbers (payouts, costs, market values, stake caps, offline cap, tending reductions, salvage cap amount, booth fee).
 - Collection Log thresholds for T2/T3.
@@ -195,6 +239,7 @@ HANDOFF.md
 - New-account trade restriction rules.
 
 ### Notes
+- (v0.50) Concept render shows "Crowns Wager" on casino furniture: superseded by the Coins-only rule; ignore.
 - Version/date collision: an imported PDF was titled v0.42 / Nov 28, 2026 while v0.42–v0.47 were already used; renumbered to v0.48 dated Nov 27, 2026.
 
 ## 6. Gotchas for Developers
@@ -212,6 +257,8 @@ HANDOFF.md
 - **v0.1 – v0.47 (Nov 26–27, 2026):** design evolution across prior threads and the merged PDF handoff (see sections above).
 - **v0.48 (Nov 27, 2026):** marked the 4 Rift-exclusive catches TBD.
 - **v0.49 (Nov 27, 2026):** moved the handoff into the repo as `HANDOFF.md`. Added economy guardrails (Salvage-only Crowns faucet, no real-money Crowns, 2% trade tax, Crowns Gacha + booth fee sinks, daily salvage limit, anti-RMT note, healthy-economy principle). Confirmed server time, 32×32 tiles, pulsing-button fishing with optional haptics. Added Build Status, repo layout, gotchas. Started the Walk & Fish Slice.
+
+- **v0.50 (Nov 27, 2026):** added both concept renders to `docs/references/` and wrote Section 4A Art Direction (projection, lighting, palette, sanctuary zones, T3 pond layout and crowd density). Restored the T3 visual notes the v0.49 rewrite had dropped, now expanded in 4A. Flagged the isometric-vs-top-down projection and the art pipeline as open decisions. Added `docs/.gdignore` so reference images aren't imported into the game.
 
 ## 8. Original Phase 1 Starter Prompt (reference)
 The full Phase 1 scope from the pre-Claude brainstorm, kept for reference. It is being built incrementally (see roadmap 1a–1d) rather than in one pass.
