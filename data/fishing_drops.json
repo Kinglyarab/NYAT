@@ -1,0 +1,32 @@
+{
+  "_notes": "Odds are '1 in N' (one_in). Fish without one_in are commons picked by weight when no rarer roll hits. Rarest rolls first. Coin values are TBD for the economy pass.",
+  "tiers": {
+    "1": { "name": "Tier 1", "rotation": "weekly", "ceiling_one_in": 500, "clog_required": 0 },
+    "2": { "name": "Tier 2", "rotation": "biweekly", "ceiling_one_in": 5000, "clog_required": null },
+    "3": { "name": "Tier 3", "rotation": "monthly", "ceiling_one_in": 50000, "cosmic_one_in": 100000, "clog_required": null }
+  },
+  "rarities": {
+    "common":     { "label": "Common",     "color": "#d8d2c4" },
+    "uncommon":   { "label": "Uncommon",   "color": "#7fd36b" },
+    "rare":       { "label": "Rare",       "color": "#5fb4ff" },
+    "ultra_rare": { "label": "Ultra-Rare", "color": "#ffb347" }
+  },
+  "ponds": {
+    "sunlit_park_pond": {
+      "name": "Sunlit Park Pond",
+      "tier": 1,
+      "fish": ["pond_minnow", "bluegill", "mud_carp", "pumpkinseed", "golden_shiner", "spotted_bass", "lily_koi", "mystery_sunken_chest", "sunbeam_pike"]
+    }
+  },
+  "fish": {
+    "pond_minnow":   { "name": "Pond Minnow",   "rarity": "common",   "weight": 40, "art": { "body": "#a8b5b0", "belly": "#e3e8e0", "fin": "#7d8c88", "pattern": "none",    "len": 0.7 } },
+    "bluegill":      { "name": "Bluegill",      "rarity": "common",   "weight": 30, "art": { "body": "#4f7fa8", "belly": "#e8c070", "fin": "#2f4f78", "pattern": "stripes", "len": 0.85 } },
+    "mud_carp":      { "name": "Mud Carp",      "rarity": "common",   "weight": 20, "art": { "body": "#8a7348", "belly": "#c9b27a", "fin": "#5e4c2c", "pattern": "scales",  "len": 1.0 } },
+    "pumpkinseed":   { "name": "Pumpkinseed",   "rarity": "common",   "weight": 15, "art": { "body": "#6f9a5a", "belly": "#f29a3c", "fin": "#4a6b3a", "pattern": "spots",   "len": 0.8 } },
+    "golden_shiner": { "name": "Golden Shiner", "rarity": "uncommon", "one_in": 20,  "art": { "body": "#e0b84a", "belly": "#fff0b0", "fin": "#b8862a", "pattern": "shine",   "len": 0.8 } },
+    "spotted_bass":  { "name": "Spotted Bass",  "rarity": "uncommon", "one_in": 40,  "art": { "body": "#5d7f3e", "belly": "#d9e0b0", "fin": "#3c5527", "pattern": "spots",   "len": 1.0 } },
+    "lily_koi":      { "name": "Lily Pad Koi",  "rarity": "rare",     "one_in": 120, "art": { "body": "#f3f0ea", "belly": "#ffffff", "fin": "#e8743b", "pattern": "koi",     "len": 1.0 } },
+    "mystery_sunken_chest": { "name": "Mystery Sunken Chest", "rarity": "rare", "one_in": 200, "container": true, "tradeable": true },
+    "sunbeam_pike":  { "name": "Sunbeam Pike",  "rarity": "ultra_rare", "one_in": 500, "art": { "body": "#f5c542", "belly": "#fff6d0", "fin": "#ff8a3d", "pattern": "sunbeam", "len": 1.0 } }
+  }
+}
