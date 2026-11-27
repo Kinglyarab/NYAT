@@ -3,7 +3,7 @@
 - **Version:** 0.49 (Economy Guardrails + Walk & Fish Slice Started)
 - **Last Updated:** November 27, 2026
 - **Target Platform:** Cross-platform 2.5D top-down pixel art (iOS/Android phones, iPad/tablets, Desktop/Steam)
-- **Repo:** github.com/kinglyarab/nyat — playable web build at kinglyarab.github.io/nyat
+- **Repo:** github.com/kinglyarab/nyat — playable web build at kinglyarab.github.io/NYAT
 - **Workflow:** Claude builds in Godot 4.3 (GDScript); every push to `main` auto-exports a web build to GitHub Pages; the owner plays it on iPad.
 
 > **Maintenance rule:** This file is the single source of truth. Update it on every change: version number, the Elevator Pitch (if features change), the Decision Log, the Build Status section and the Changelog.

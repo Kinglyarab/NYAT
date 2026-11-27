@@ -1,7 +1,7 @@
 name: Build web and deploy
 
 # Every push to main exports the Godot project for the web and publishes it to
-# GitHub Pages (kinglyarab.github.io/nyat). Single-threaded export, so Pages
+# GitHub Pages (kinglyarab.github.io/NYAT). Single-threaded export, so Pages
 # doesn't need special headers.
 
 on:
